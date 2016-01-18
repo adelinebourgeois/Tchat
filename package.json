@@ -1,0 +1,24 @@
+{
+  "name": "tchat",
+  "version": "1.0.0",
+  "description": "un tchat avec node",
+  "main": "server.js",
+  "dependencies": {
+    "socket.io": "^1.4.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adelinebourgeois/Tchat.git"
+  },
+  "author": "adeline",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adelinebourgeois/Tchat/issues"
+  },
+  "homepage": "https://github.com/adelinebourgeois/Tchat#readme"
+}

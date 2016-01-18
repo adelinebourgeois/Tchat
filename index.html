@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tchat</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<div class="wrapper">
+	<div id="messages">
+	<div class="channel">
+		<h2>Channel</h2>
+			<div id="channel">
+			</div>
+		</div>
+		<div class="messages" id='msg'>
+			<div id="notif"></div>
+			<div class="info">
+				<p>{{login.username}}</p>
+				<span class="date">{{h}}:{{m}}</span>
+				<p>{{message}}</p>
+			</div>
+		</div>
+	</div>
+	<div class="form">
+		<div id="log">
+		<form action="" id="connect">
+			<input type="text" name="login" id="login" placeholder="Votre pseudo"/>
+			<input type="submit" value="SEND" />
+		</form>
+		</div>
+		<form action="" id="form">
+			<textarea type="text" id="message" placeholder="Votre message...."></textarea>
+			<input type="submit" value="SEND">
+		</form>
+	</div>
+</div>
+</body>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+	<script type="text/javascript" src="http://localhost:1337/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="js/client.js"></script>
+	<script type="text/javascript" src="js/mustache.js"></script>
+</html>

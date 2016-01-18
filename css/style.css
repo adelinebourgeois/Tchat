@@ -1,0 +1,146 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+html {
+	background-color: #F2EEEB;
+}
+body {
+	line-height: 1;
+	background-color: rgb(40, 147, 218);
+	height: 200px;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.wrapper {
+	width: 50%;
+	margin: 5% auto auto 25%;
+	text-align: center;
+	z-index: 300;
+	background-color: #FFF;
+	position: absolute;
+	height: 580px
+}
+input[type=submit]{
+	border: medium none;
+	background-color: rgb(65, 119, 158);
+	width: 15%;
+	height: 20%;
+	font-size: 17px;
+	color: #FFF;
+}
+input[type=text]{
+	width: 45%;
+	margin-bottom: 1%
+}
+#messages {
+	width: 89%;
+	margin: auto;
+	overflow-y: auto;
+	padding: 18px 0px;
+	height: 73%;
+}
+.info, #notif{
+	width: 76%;
+    padding: 11px;
+    border-bottom: 1px solid rgb(224, 218, 218);
+    margin-left: 133px;
+}
+.info p {
+	text-align: left;
+	width: 80%;
+}
+.info span {
+	text-align: right;
+	color: rgb(209, 209, 209);
+	display: block;
+}
+.info p:first-child {
+	font-size: 19px;
+	color: #41779E;
+    font-weight: bold;
+}
+.channel {
+	float: left;
+    width: 100px;
+	border-width: 3px 3px 3px 0;
+	border-style: solid;
+	-webkit-border-image:
+	-webkit-gradient(linear, 0 0, 100% 0, from(rgb(40, 147, 218)), to(#F2EEEB)) 1 100%;
+	-webkit-border-image:
+	-webkit-linear-gradient(rgb(40, 147, 218), #F2EEEB) 1 100%;
+	-moz-border-image:
+	-moz-linear-gradient(rgb(40, 147, 218), #F2EEEB) 1 100%;
+	-o-border-image:
+	-o-linear-gradient(rgb(40, 147, 218), #F2EEEB) 1 100%;
+	border-image:
+	linear-gradient(rgb(40, 147, 218), #F2EEEB) 1 100%;
+	height: 300px;
+    padding: 10px;
+    position: fixed;
+}
+
+textarea{
+	width: 45%;
+    height: 55px;
+}
+.form{
+	background-color: rgb(209, 209, 209);
+    padding: 12px;
+	height: 96px;
+}
+.channel h2{
+	font-size: 30px;
+	color: rgb(40, 147, 218);
+}
+#channel{
+	margin-top: 20px;
+	font-size: 21px;
+}
+#channel div a{
+	text-decoration: none;
+	color: rgb(209, 209, 209);
+}
+#channel div a:hover{
+	color: #f2eeeb;
+}
+#channel div a:focus,#channel div a:active{
+	color: #000;
+}

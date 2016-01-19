@@ -36,24 +36,19 @@ io.sockets.on('connection', function (socket, room){ // io.sockets = tous user c
 		current_room = room;
 		console.log(current_room);
 		contain = getDataRoom(current_room);
-		// console.log(contain);
-        socket.in(room).emit('notif', 'you have connected to' + room );
-        socket.broadcast.to(room).emit('notif',  login + ' has connected to this room');
-        console.log('connected to ' + room);
+        console.log('connected to ' + current_room);
 
 		socket.emit('form');
 
 		socket.on('newmessage', function (message){
+			contain = getDataRoom(room);
+			contain.push(message);
 			message.login = login;
-			// console.log(login);
 			date = new Date();
 			message.h = date.getHours();
 			message.m = date.getMinutes();
-			contain = getDataRoom(room);
-			contain.push(message);
-			// console.log(contain);
-			io.sockets.in(room).emit('newmessage', message);
-			// console.log(JSON.stringify(message) + ' dans la ' + room);
+			io.sockets.in(current_room).emit('newmessage', message);
+			
 		});
 
 		// Deconnexion \\
@@ -70,4 +65,6 @@ io.sockets.on('connection', function (socket, room){ // io.sockets = tous user c
 		console.log(messages[r]);
 		return messages[r];
 	}
+
+	
 });

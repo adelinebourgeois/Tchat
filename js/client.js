@@ -6,6 +6,7 @@ var socket = io.connect('http://localhost:1337');
 	$("#msg").remove();
 	$('#form').fadeOut();
 	$('#connect').fadeOut();
+	var current_room;
 
     socket.on('form', function() {
 
@@ -24,9 +25,9 @@ var socket = io.connect('http://localhost:1337');
 	});
 
 	// NOTIF \\
-	socket.on('notif', function (data){
-		$('#notif').append('<p> ' + data + '</p></br>');
-	});
+	// socket.on('notif ' + current_room, function (data){
+	// 	$('#notif').append('<p> ' + data + '</p></br>');
+	// });
 
 	//Envoi message 
 	$("#form").submit(function (e){
@@ -46,8 +47,8 @@ var socket = io.connect('http://localhost:1337');
 
 	socket.on('updaterooms', function(rooms) {
 		$.each(rooms, function(key, value) {
-				$('#channel').append('<div><a href="#" onclick="socket.emit(\'join room\', \''+value+'\')">'+value+'</a></div>');
+				$('#channel').append('<div><a class="room" href="#" onclick="socket.emit(\'join room\', \''+value+'\'); active()">'+value+'</a></div>');
 		});
 	});
-
+	
 })(jQuery);

@@ -141,6 +141,6 @@ textarea{
 #channel div a:hover{
 	color: #f2eeeb;
 }
-#channel div a:focus,#channel div a:active{
+#channel div a.active{
 	color: #000;
 }

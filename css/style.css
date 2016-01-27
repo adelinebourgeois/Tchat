@@ -100,7 +100,7 @@ input[type=text]{
 .channel {
 	float: left;
     width: 100px;
-	border-width: 3px 3px 3px 0;
+	border-width: 0px 3px 0px 0;
 	border-style: solid;
 	-webkit-border-image:
 	-webkit-gradient(linear, 0 0, 100% 0, from(rgb(40, 147, 218)), to(#F2EEEB)) 1 100%;

@@ -4,15 +4,13 @@
 	<title>Tchat</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script type="text/javascript">
-		function active() {
-			$('.room').click(function() {
-				if (!$(this).hasClass('active')) {
-				    $('.room').removeClass('active');
-				    $(this).addClass('active');
-				} else {
-				    $(this).removeClass('active');
-				}
-			});
+		function active(e) {
+			if (!$(e.target).hasClass('active')) {
+		 	   $('.room').removeClass('active');
+		 	   $(e.target).addClass('active');
+			} else {
+			    $(e.target).removeClass('active');
+			}
 		}
 	</script>
 </head>

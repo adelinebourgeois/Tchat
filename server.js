@@ -13,13 +13,12 @@ var io = require('socket.io').listen(server);
 var users = {}; // var contenant tous mes utilisateurs
 var messages = {}; //tableau de msg
 var rooms = ['room1', 'room2'];
-var current_room;
+var roomJoin = [];
 
 
 
 io.sockets.on('connection', function (socket, room){ // io.sockets = tous user connecté au système
 	var login = false;
-	console.log('new user');
 	socket.emit('updaterooms', rooms, room);
 
 	// Connexion \\
@@ -28,43 +27,28 @@ io.sockets.on('connection', function (socket, room){ // io.sockets = tous user c
 		socket.emit('logged');
 	});
 
-
 	//Multi-room \\
 	socket.on('join room', function (room) {
-		socket.leave(current_room);
+		if (socket.current_room) {
+			socket.leave(socket.current_room);
+		}
 		socket.join(room);
-		current_room = room;
-		console.log(current_room);
-		contain = getDataRoom(current_room);
-        console.log('connected to ' + current_room);
-
-		socket.emit('form');
+		socket.current_room = room;
+		roomJoin.push(socket.current_room);
+		socket.emit('form', room);	
+	});
 
 		socket.on('newmessage', function (message){
-			contain = getDataRoom(room);
-			contain.push(message);
 			message.login = login;
 			date = new Date();
 			message.h = date.getHours();
 			message.m = date.getMinutes();
-			io.sockets.in(current_room).emit('newmessage', message);
-			
-		});
+			io.sockets.in(socket.current_room).emit('newmessage', message);
 
 		// Deconnexion \\
-		socket.on('disconnect', function(){
-			delete users[login];
-			io.sockets.emit('updateusers', users);
-			socket.broadcast.emit('notif', login + 'has disconnected');
+		socket.on('disconnect', function () {
+			io.sockets.in(socket.current_room).emit('notif', login + ' has disconnected');
 			socket.leave(room);
 		})
 	});
-
-	function getDataRoom(r){
-		if(!messages[r]){ messages[r] = []; }
-		console.log(messages[r]);
-		return messages[r];
-	}
-
-	
 });

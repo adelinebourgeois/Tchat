@@ -71,10 +71,8 @@ input[type=text]{
 	margin-bottom: 1%
 }
 #messages {
-	width: 89%;
 	margin: auto;
 	overflow-y: auto;
-	padding: 18px 0px;
 	height: 73%;
 }
 .info, #notif{
@@ -112,9 +110,10 @@ input[type=text]{
 	-o-linear-gradient(rgb(40, 147, 218), #F2EEEB) 1 100%;
 	border-image:
 	linear-gradient(rgb(40, 147, 218), #F2EEEB) 1 100%;
-	height: 300px;
     padding: 10px;
     position: fixed;
+    height: 30%;
+    
 }
 
 textarea{
@@ -123,8 +122,8 @@ textarea{
 }
 .form{
 	background-color: rgb(209, 209, 209);
+	height: 132px;
     padding: 12px;
-	height: 96px;
 }
 .channel h2{
 	font-size: 30px;
@@ -143,4 +142,7 @@ textarea{
 }
 #channel div a.active{
 	color: #000;
+}
+.me{
+	background-color: blue; 
 }

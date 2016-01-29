@@ -5,6 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script type="text/javascript">
 		function active(e) {
+			window.current_room = $(e.target).text();
 			if (!$(e.target).hasClass('active')) {
 		 	   $('.room').removeClass('active');
 		 	   $(e.target).addClass('active');
@@ -16,12 +17,12 @@
 </head>
 <body>
 <div class="wrapper">
-	<div id="messages">
-	<div class="channel">
+<div class="channel">
 		<h2>Channel</h2>
 			<div id="channel">
 			</div>
 		</div>
+	<div id="messages">
 		<div class="messages" id='msg'>
 			<div id="notif"></div>
 			<div class="info">
@@ -40,7 +41,7 @@
 		</div>
 		<form action="" id="form">
 			<textarea type="text" id="message" placeholder="Votre message...."></textarea>
-			<input type="submit" value="SEND">
+			<input type="submit" id="send-message" value="SEND">
 		</form>
 	</div>
 </div>

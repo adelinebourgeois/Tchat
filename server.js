@@ -29,26 +29,23 @@ io.sockets.on('connection', function (socket, room){ // io.sockets = tous user c
 
 	//Multi-room \\
 	socket.on('join room', function (room) {
-		if (socket.current_room) {
-			socket.leave(socket.current_room);
-		}
 		socket.join(room);
 		socket.current_room = room;
 		roomJoin.push(socket.current_room);
 		socket.emit('form', room);	
 	});
 
-		socket.on('newmessage', function (message){
+		socket.on('newmessage', function (message) {
 			message.login = login;
 			date = new Date();
 			message.h = date.getHours();
 			message.m = date.getMinutes();
-			io.sockets.in(socket.current_room).emit('newmessage', message);
+			io.sockets.in(message.room).emit('newmessage', message);
+		});
 
 		// Deconnexion \\
 		socket.on('disconnect', function () {
 			io.sockets.in(socket.current_room).emit('notif', login + ' has disconnected');
 			socket.leave(room);
-		})
-	});
+		});
 });

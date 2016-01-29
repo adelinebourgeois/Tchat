@@ -2,12 +2,11 @@
 var socket = io.connect('http://localhost:1337');
 
 (function ($) {
-	var roomsMessages = {};
+	window.roomsMessages = {};
 	var msg = $("#msg").html();
 	$("#msg").remove();
 	$('#form').fadeOut();
 	$('#connect').fadeOut();
-	var current_room;
 	var pseudoEnvoye = false;
 	var roomJoin = [];
 
@@ -18,8 +17,12 @@ var socket = io.connect('http://localhost:1337');
         $('.message').remove();
         $('#message').val('');
         localStorage.setItem('room', room);
-        var getFromStorage = roomsMessages[localStorage.getItem('room')];
-        $('#messages').append(getFromStorage);
+        var getFromStorage = window.roomsMessages[localStorage.getItem('room')];
+        if (getFromStorage) {
+        	for (var i = 0; i < getFromStorage.length; i++) {
+	        	$('#messages').append($(getFromStorage[i]));
+	        }
+        }
     });
 
 	$("#connect").submit(function (e) {
@@ -34,33 +37,50 @@ var socket = io.connect('http://localhost:1337');
 	});
 
 	// NOTIF \\
-	socket.on('notif ', function (data){
-		console.log(data); // TODO: notif while unload
+	socket.on('notif ', function (data) {
 		$('#notif').append('<p> ' + data + '</p></br>');
 	});
 
 	//Envoi message 
-	$("#form").submit(function (e) {
-		e.preventDefault();
+	$("#send-message").click(function (e) {
 		socket.emit('newmessage', { // envoie un événement au serveur
-			message : $('#message').val()
+			message : $('#message').val(),
+			room: window.current_room
 		});
+		if($('#message').val().match(/^\/join(.*)$/)) {
+			var channel = $('#message').val().match(/^\/join(.*)$/);
+			socket.emit('join room', channel[1]);
+		} else {
+			return false;
+		}
 		pseudoEnvoye = true;
+		e.preventDefault();
 	});
 
-	socket.on('newmessage', function (message){
+	socket.on('newmessage', function (message) {
 		Mustache.render(msg, message);
-		$('#messages').append('<div class="message" data-room="' + localStorage.getItem('room') + '">' + Mustache.render(msg, message) + '</div>')
-		$('#messages').animate({scrollTop : $('#messages').prop('scrollHeight')}, 500); // nouveau msg , scoll vers le bas
-		var msgCurrentRoom = $('*[data-room="' + localStorage.getItem('room') + '"');
-		roomsMessages[localStorage.getItem('room')] = msgCurrentRoom;
+		if(message.room === window.current_room) {
+			$('#message').val('');
+			$('#messages').append('<div class="message" data-room="' + localStorage.getItem('room') + '">' + Mustache.render(msg, message) + '</div>');
+			$('#messages').animate({scrollTop : $('#messages').prop('scrollHeight')}, 500); // nouveau msg , scoll vers le bas
+			var msgCurrentRoom = document.querySelectorAll('*[data-room="' + localStorage.getItem('room') + '"');
+			window.roomsMessages[localStorage.getItem('room')] = msgCurrentRoom;
+		} else {
+			// window.roomsMessages[message.room] = !Array.isArray(window.roomsMessages[message.room]) ? window.roomsMessages[message.room] : [];
+			if (!Array.isArray(window.roomsMessages[message.room]) && typeof window.roomsMessages[message.room] === "object") {
+				window.roomsMessages[message.room] = $.makeArray(window.roomsMessages[message.room]);
+			} else {
+				window.roomsMessages[message.room] = window.roomsMessages[message.room] || [];
+			}
+			window.roomsMessages[message.room].push('<div class="message" data-room="' + message.room + '">' + Mustache.render(msg, message) + '</div>');
+		}
 	});
 
 	// Multi-room \\
 
 	socket.on('updaterooms', function(rooms) {
 		$.each(rooms, function(key, value) {
-			$('#channel').append('<div><a class="room" href="#" onclick="socket.emit(\'join room\', \'' + value + '\'); active(event); roomJoin.push('+ value +')">'+value+'</a></div>');
+			$('#channel').append('<div><a class="room" href="#" onclick="socket.emit(\'join room\', \'' + value + '\'); active(event);">'+value+'</a></div>');
 		});
 	});
 

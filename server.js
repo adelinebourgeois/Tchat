@@ -7,7 +7,7 @@ var server = http.createServer(function (req, res) { // fonction de callback / r
   res.writeHead(200);	// 200 = tout va bien      // res = objet -> a remplir pour donner un retour au visiteur
   res.end('Salut tout le monde !');
 });
-server.listen(1337); // serveur lancé sur le port 8080
+server.listen(1337); // serveur lancé sur le port 1337
 
 var io = require('socket.io').listen(server);
 var users = {}; // var contenant tous mes utilisateurs
